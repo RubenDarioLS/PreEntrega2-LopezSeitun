@@ -1,7 +1,25 @@
+import { useContext, useState } from "react";
 import ItemCount from "../../components/ItemCount/ItemCount"
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
 
 const ItemDetail = ({ id, title, image, description, price, stock, category }) => {
+
+
+    const [quantityAdded, setQuantityAdded] = useState(0)
+
+    const { addItem } = useContext(CartContext)
+
+    const handleOnAdd = (quantity) => {
+        setQuantityAdded(quantity)
+
+        const item = {
+            id, title, price
+        }
+
+        addItem(item, quantity)
+    }
+
 
     return (
         <>
@@ -19,7 +37,8 @@ const ItemDetail = ({ id, title, image, description, price, stock, category }) =
                         <p className="bg-violet-700 text-white text-lg  ">Stock: {stock}</p>
                         <p className="bg-violet-700 text-white text-lg  ">category: {category}</p>
 
-                        <ItemCount initial={0} stock={stock} onAdd={(count) => console.log('Cantidad agregada:', count)} />
+                        {quantityAdded > 0 ? (<Link to='/cart' className="text-white bg-violet-500 hover:bg-violet-400 w-32 my-8 p-1 text-center rounded-lg text-bold text-xl  md:bottom-8 ">Go to cart</Link>) : (<ItemCount initial={0} stock={stock} onAdd={handleOnAdd} />)
+                        }
                         <Link to={'/'} className="text-white bg-violet-500 hover:bg-violet-400 w-32 my-8 p-1 text-center rounded-lg text-bold text-xl md:absolute md:bottom-8 ">Back</Link>
                     </div>
 

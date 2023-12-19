@@ -4,6 +4,7 @@ import { CartWidget } from "../CartWidget/CartWidget";
 import { Link, NavLink } from 'react-router-dom'
 
 const menuContect = [
+    { name: 'Home', link: '/' },
     { name: 'T-shirts', link: '/category/t-shirts' },
     { name: 'Jackets', link: '/category/jackets' },
     { name: 'Backpacks', link: '/category/backpacks' },]

@@ -1,22 +1,34 @@
 import { useState, useEffect } from "react";
-import { getProductById } from "../../asyncMonk";
 import { useParams } from "react-router-dom";
 import ItemDetail from "../ItemDetail/ItemDetail";
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from "../../services/firebase/firebaseConfig";
+
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState();
+  const [loading, setLoading] = useState(true)
 
   const { itemId } = useParams();
 
   useEffect(() => {
-    const id = parseInt(itemId)
-    getProductById(id)
+    setLoading(true)
+
+    const docRef = doc(db, 'products', itemId)
+
+    getDoc(docRef)
       .then(response => {
-        setProduct(response);
+        const data = response.data()
+        const productAdapted = { id: response.id, ...data }
+        setProduct(productAdapted)
       })
       .catch(error => {
         console.log(error)
       })
+      .finally(() => {
+        setLoading(false)
+      })
+
   }, [itemId]);
 
   return (

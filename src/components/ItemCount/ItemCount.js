@@ -14,6 +14,8 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
     }
 
+    
+
     return (
         <>
             <div className="flex flex-col w-44 border border-violet-700 bg-violet-700 m-5">
