@@ -47,7 +47,7 @@ const CheckoutForm = ({ onConfirm }) => {
     return (
 
         <>
-            <form onSubmit={handleSubmit((userData) => onConfirm(userData))} className='flex flex-col mt-10 w-96'>
+            <form onSubmit={handleSubmit((userData) => onConfirm(userData))} className='flex flex-col mt-10 w-full px-6 md:w-96'>
 
                 <label htmlFor='name' className='text-white text-2xl'>Name:</label>
                 <input placeholder='Name' type='text' className='bg-white text-md'
@@ -84,7 +84,7 @@ const CheckoutForm = ({ onConfirm }) => {
                         })} />
                 <p className='text-red-600 text-sm'>{errors.phone?.message} </p>
 
-                <input className='text-white border rounded mt-4' type='submit' />
+                <input className='text-white text-xl items-center jusfify-center h-10 border rounded mt-4 bg-violet-700' type='submit' />
             </form>
 
 

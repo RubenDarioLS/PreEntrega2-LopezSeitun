@@ -37,7 +37,7 @@ const NavBar = () => {
                 </div>
                 {menuVisible &&
 
-                    <ul className="flex flex-col mt-4  justify-center lg:hidden bg-violet-700 ">{menuContect.map((menuContect) => <NavLink key={menuContect.name} to={menuContect.link}><li className=" text-xl text-white list-none bg-violet-700 hover:bg-violet-600 py-2 font-bold text-center">{menuContect.name}</li></NavLink>)}</ul>
+                    <ul className="flex flex-col mt-4  justify-center lg:hidden bg-violet-700 ">{menuContect.map((menuContect) => <NavLink key={menuContect.name} to={menuContect.link}><li onClick={handleMenuClick} className=" text-xl text-white list-none bg-violet-700 hover:bg-violet-600 py-2 font-bold text-center">{menuContect.name}</li></NavLink>)}</ul>
                 }
 
 

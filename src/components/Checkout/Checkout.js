@@ -3,6 +3,7 @@ import { CartContext } from '../../context/CartContext'
 import { collection, query, where, writeBatch, Timestamp, documentId, addDoc, getDocs } from 'firebase/firestore'
 import { db } from "../../services/firebase/firebaseConfig"
 import CheckoutForm from '../CheckoutForm/CheckoutForm'
+import { Link } from 'react-router-dom'
 
 
 
@@ -10,7 +11,7 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const [orderId, setOrderId] = useState('')
 
-    const { cart, total, clearCart } = useContext(CartContext)
+    const { cart, totalPrice, clearCart } = useContext(CartContext)
 
     const createOrder = async ({ name, email, phone }) => {
         setLoading(true)
@@ -20,10 +21,10 @@ const Checkout = () => {
                 buyer: {
                     name: name,
                     phone: phone,
-                    email: email                     ,
+                    email: email,
                 },
                 items: cart,
-                total: total,
+                total: totalPrice(),
                 date: Timestamp.fromDate(new Date())
             }
 
@@ -61,6 +62,7 @@ const Checkout = () => {
                 const orderAdded = await addDoc(orderRef, objOrder)
                 console.log('Order Added:', orderAdded);
                 setOrderId(orderAdded.id)
+
                 clearCart()
 
             } else {
@@ -74,17 +76,27 @@ const Checkout = () => {
         }
     }
     if (loading) {
-        return <h1 className='text-white text-3xl'>Se esta generando su orden...</h1>
+        return <h1 className='text-white text-2xl flex justify-center items-center mt-40'>Your order is being generated...</h1>
 
     }
 
     if (orderId) {
-        return <h1 className='text-white text-3xl'> El id de su orden es: {orderId}</h1>
+        return (
+            <div>
+                |
+                <h1 className='text-white text-3xl w-full flex justify-center mt-40 text-center flex-col'> The ID of your order is: <br />
+                    <span className='mt-4 text-violet-500 text-lg '>
+                        {orderId}
+                    </span></h1>
+                <Link to='/' className='text-white mt-8  py-2 mx-auto flex text-center items-center  justify-center w-32 rounded px-2 bg-violet-700 hover:text-violet-600 lg:hover:scale-110'>Back to home</Link>
+            </div>
+        )
+
     }
 
     return (
         <div className='w-full flex flex-col justify-center items-center my-16'>
-            <h1 className='text-white text-4xl'>Checkout</h1>
+            <h1 className='text-white text-4xl '>Checkout</h1>
             <CheckoutForm onConfirm={createOrder} />
         </div>
     )
