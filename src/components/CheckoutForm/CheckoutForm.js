@@ -53,10 +53,10 @@ const CheckoutForm = ({ onConfirm }) => {
                 <input placeholder='Name' type='text' className='bg-white text-md'
                     {...register('name',
                         {
-                            required: {
-                                value: true,
-                                message: "Este campo es requerido",
-                            }
+                            required: { value: true, message: "This field is required." },
+                            minLength: { value: 3, message: "The name must have a minimum of 3 characters." },
+                            maxLength: { value: 20, message: "The name must have a maximum of 20 characters." },
+                            pattern: { value: /^[A-Za-z\u00B4]+|[A-Za-z]+\u00B4[A-Za-z]+$/, message: "Invalid character." }
                         })} />
                 <p className='text-red-600 text-sm'>{errors.name?.message} </p>
 
@@ -64,10 +64,10 @@ const CheckoutForm = ({ onConfirm }) => {
                 <input type='email' placeholder='Email' className='bg-white text-md'
                     {...register('email',
                         {
-                            required: {
-                                value: true,
-                                message: "Este campo es requerido",
-                            }
+                            required: { value: true, message: "This field is required." },
+                            minLength: { value: 3, message: "The email must have a minimum of 3 characters." },
+                            maxLength: { value: 35, message: "The email must have a maximum of 35 characters." },
+                            pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,6}$/, message: "Invalid character." }
                         })} />
                 <p className='text-red-600 text-sm'>{errors.email?.message} </p>
 
@@ -77,10 +77,9 @@ const CheckoutForm = ({ onConfirm }) => {
                 <input type='tel' placeholder='Phone' className='bg-white text-md'
                     {...register('phone',
                         {
-                            required: {
-                                value: true,
-                                message: "Este campo es requerido",
-                            }
+                            required: { value: true, message: "This field is required." },
+                            minLength: { value: 3, message: "The phone must have a minimum of 3 numbers." },
+                            maxLength: { value: 18, message: "The phone must have a maximum of 18 numbers." }
                         })} />
                 <p className='text-red-600 text-sm'>{errors.phone?.message} </p>
 
